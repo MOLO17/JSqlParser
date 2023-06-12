@@ -69,7 +69,7 @@ public interface ExpressionVisitor {
 
     void visit(Between between);
 
-    void visit (OverlapsCondition overlapsCondition);
+    void visit(OverlapsCondition overlapsCondition);
 
     void visit(EqualsTo equalsTo);
 
@@ -194,4 +194,6 @@ public interface ExpressionVisitor {
     void visit(IsDistinctExpression isDistinctExpression);
 
     void visit(GeometryDistance geometryDistance);
+
+    void visit(InterpretExpression interpretExpression);
 }
