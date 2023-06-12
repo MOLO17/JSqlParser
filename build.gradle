@@ -20,7 +20,7 @@ plugins {
 
 
 
-group = 'com.github.jsqlparser'
+group = 'com.github.MOLO17'
 
 def getVersion = { boolean considerSnapshot ->
     return "4.8.0"
@@ -386,51 +386,51 @@ publishing {
             }
         }
     }
-    repositories {
-
-        maven {
-            // Username and Password are defined in ~/.gradle/gradle.properties
-            name "ossrh"
-            url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials(PasswordCredentials)
-        }
-    }
+//    repositories {
+//
+//        maven {
+//            // Username and Password are defined in ~/.gradle/gradle.properties
+//            name "ossrh"
+//            url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            credentials(PasswordCredentials)
+//        }
+//    }
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task upload(type: Exec) {
-    dependsOn(build, gitChangelogTask)
-
-    def versionStable = getVersion(false)
-
-    if( findProperty("${project.name}.host")==null ) {
-        println(
-"""
-Property \"${project.name}.host\' not found.
-Please define \"${project.name}.host\" in the Gradle configuration (e. g. \$HOME/.gradle/gradle.properties.
-"""
-        )
-    } else {
-
-        // define the USERNAME and HOST properties in ~/.gradle/gradle.properties
-        args = ["sftp://${findProperty("${project.name}.username")}@${findProperty("${project.name}.host")}/download"]
-
-        executable "sftp"
-
-        standardInput = new ByteArrayInputStream("""<<EOF
-                                                mkdir ${project.name}-${versionStable}
-                                                cd ${project.name}-${versionStable}
-                                                put build/libs/*
-                                                quit
-                                                EOF"""
-                .getBytes(Charset.defaultCharset()))
-
-        standardOutput = new ByteArrayOutputStream()
-        ext.output = {
-            return standardOutput.toString()
-        }
-    }
-}
+//task upload(type: Exec) {
+//    dependsOn(build, gitChangelogTask)
+//
+//    def versionStable = getVersion(false)
+//
+//    if( findProperty("${project.name}.host")==null ) {
+//        println(
+//"""
+//Property \"${project.name}.host\' not found.
+//Please define \"${project.name}.host\" in the Gradle configuration (e. g. \$HOME/.gradle/gradle.properties.
+//"""
+//        )
+//    } else {
+//
+//        // define the USERNAME and HOST properties in ~/.gradle/gradle.properties
+//        args = ["sftp://${findProperty("${project.name}.username")}@${findProperty("${project.name}.host")}/download"]
+//
+//        executable "sftp"
+//
+//        standardInput = new ByteArrayInputStream("""<<EOF
+//                                                mkdir ${project.name}-${versionStable}
+//                                                cd ${project.name}-${versionStable}
+//                                                put build/libs/*
+//                                                quit
+//                                                EOF"""
+//                .getBytes(Charset.defaultCharset()))
+//
+//        standardOutput = new ByteArrayOutputStream()
+//        ext.output = {
+//            return standardOutput.toString()
+//        }
+//    }
+//}
